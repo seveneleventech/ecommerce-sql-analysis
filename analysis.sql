@@ -37,3 +37,15 @@ ORDER BY revenue DESC;
 SELECT 
     ROUND(AVG(quantity * unitprice), 2) AS avg_order_value
 FROM retail_data;
+-- Customer Segmentation (High / Medium / Low Spenders)
+SELECT 
+    customerid,
+    SUM(quantity * unitprice) AS total_spent,
+    CASE 
+        WHEN SUM(quantity * unitprice) > 10000 THEN 'High Value'
+        WHEN SUM(quantity * unitprice) BETWEEN 5000 AND 10000 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END AS customer_segment
+FROM retail_data
+WHERE customerid IS NOT NULL
+GROUP BY customerid;
