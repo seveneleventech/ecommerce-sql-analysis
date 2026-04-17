@@ -1,5 +1,9 @@
 -- ECOMMERCE SQL ANALYSIS PROJECT
 -- Author: Srujana Mudunuru
+-- This project analyzes ecommerce transaction data to extract insights on revenue,
+-- customer behavior, and sales trends using PostgreSQL.
+-- It includes metrics such as total revenue, top customers, product demand,
+-- country-wise sales, and customer segmentation.
 
 -- 1. Total Revenue
 SELECT 
@@ -28,16 +32,17 @@ LIMIT 10;
 -- 4. Revenue by Country
 SELECT 
     country,
-    SUM(quantity * unitprice) AS revenue
+    SUM(quantity * unitprice) AS total_revenue
 FROM retail_data
 GROUP BY country
-ORDER BY revenue DESC;
+ORDER BY total_revenue DESC;
 
 -- 5. Average Order Value
 SELECT 
     ROUND(AVG(quantity * unitprice), 2) AS avg_order_value
 FROM retail_data;
--- Customer Segmentation (High / Medium / Low Spenders)
+
+-- 6. Customer Segmentation
 SELECT 
     customerid,
     SUM(quantity * unitprice) AS total_spent,
